@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <title>PAD DMG SIM</title>
@@ -328,7 +328,7 @@ $(document).ready(function() {
 	lsenhs_from_json(pty1.alsenhs);
 	droprows_from_json(g_adrps);
 
-//	switch_focus_party(g_nfocusparty);
+	switch_focus_party(g_nfocusparty);
 
 	load_plugin_js();
 });
@@ -1220,6 +1220,7 @@ x mobile browser で発生する 300ms 遅延を防ぐために fastclick.js を
 - ほとんどおなじことをやっている人発見 http://appeal1113.blogspot.jp/p/dameken.html
 
 TODO
+- show "noimg" when failed to load img
 - 自動ロード、セーブ?
 - <select> を操作したら右下とかにチラッと総合ダメージ数値表示したら便利そう
 - handleOpenURL() を実装 (custom scheme)
