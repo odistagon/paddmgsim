@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="defaults.css" />
 <style>
 /* layout outer responsive */
-@media all and (max-device-width: 600px) {
+@media all and (max-device-width: 39em) {
 	.screenbreak.ui-block-a,
 	.screenbreak.ui-block-b,
 	.screenbreak.ui-block-c,
@@ -25,7 +25,7 @@
 	.screenbreak.ui-block-b {
 	}
 }
-@media all and (min-device-width: 601px) {
+@media all and (min-device-width: 40em) {
 	.screenbreak.ui-block-b {
 		padding-left: 10px;
 	}
@@ -59,7 +59,7 @@
 	<h1 id="title_head"></h1>
 </div>
 
-<div data-role="content" id="c_mbrs" style="padding-bottom: 0px">
+<div data-role="content" id="c_mbrs" style="padding-top: 0px; padding-bottom: 0px">
 
 	<fieldset class="ui-grid-a" id="fs_main_outer_1"><!-- RWD layout -->
 	<div class="ui-block-a screenbreak" style="border: 3px red">
@@ -137,10 +137,12 @@
 
 </div>
 
+<div data-role="content" style="padding-top: 0px; padding-bottom: 0px">
+
 <fieldset class="ui-grid-a" id="fs_main_outer_2"><!-- RWD layout -->
 <div class="ui-block-a screenbreak" style="border: 3px red">
 
-<div data-role="content" id="c_conds" style="padding-top: 0px; padding-bottom: 0px">
+<div id="c_conds">
 
 	<div id="dcol_cmbrows" data-role="collapsible" data-collapsed="false" data-mini="true" data-inset="true" data-theme="e"
 		data-collapsed-icon="carat-d" data-expanded-icon="carat-u" data-iconpos="left">
@@ -200,6 +202,8 @@
 
 </div></fieldset><!-- RWD layout -->
 
+</div>
+
 <div data-role="footer" data-mini="false" data-theme="b">
 	<h4><a data-ajax="false" href="#top">Back to TOP</a></h4>
 </div>
@@ -212,17 +216,30 @@
 </div>
 
 <div data-role="content" class="ui-content" role="main">
+<style>
+div.finputlabel {
+	text-align: right;
+	padding-right: 1em;
+	margin-top: 1.2em;
+}
+</style>
+
+<fieldset class="ui-grid-a" style="padding-left: 10px; padding-right: 10px">
+	<div class="ui-block-a" style="width: 20%; background-color: black; border-radius: 5px; padding: 10px">
+		<img id="im_charic_edit" class="im_charic_base" src="res/imgs/img_trans.gif" />
+	</div>
+	<div class="ui-block-b" style="width: 80%">
 
 <fieldset class="ui-grid-a">
-	<div class="ui-block-a" style="margin-top:1.2em">No.</div>
+	<div class="ui-block-a finputlabel">No.</div>
 	<div class="ui-block-b"><input type="text" name="tx_char_no" id="tx_char_no" value=""></div>
 </fieldset>
 <fieldset class="ui-grid-a">
-	<div class="ui-block-a" style="margin-top:1.2em">攻撃</div>
+	<div class="ui-block-a finputlabel">攻撃</div>
 	<div class="ui-block-b"><input type="text" name="tx_char_dmg" id="tx_char_dmg" value=""></div>
 </fieldset>
 <fieldset class="ui-grid-a">
-	<div class="ui-block-a" style="margin-top:1.2em">タイプ (主副)</div>
+	<div class="ui-block-a finputlabel">タイプ (主副)</div>
 	<div class="ui-block-b">
 		<fieldset data-role="controlgroup" data-type="horizontal">
 		<div class="ui-block-a">
@@ -255,7 +272,7 @@
 </fieldset>
 
 <fieldset class="ui-grid-a">
-	<div class="ui-block-a" style="margin-top:1.2em">攻撃属性 (主副)</div>
+	<div class="ui-block-a finputlabel">攻撃属性 (主副)</div>
 	<div class="ui-block-b">
 		<fieldset data-role="controlgroup" data-type="horizontal">
 		<div class="ui-block-a">
@@ -278,6 +295,9 @@
 			</select>
 		</div>
 		</fieldset>
+	</div>
+</fieldset>
+
 	</div>
 </fieldset>
 

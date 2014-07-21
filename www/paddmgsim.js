@@ -242,12 +242,22 @@ function g() {
 	$('#tbody_tgtsdmg').empty();
 	for(i = 0; i < tgts.length; i++) {
 		var	npct = Math.floor((tgts[i].hp / tgts[i].hp0) * 100);
+		var	sattrs = "<div class='xxx_icon_base xxx_icon_attr_" + tgts[i].att[0] + "' style='margin: 0px; float: left' />";
+		if(tgts[i].att.length > 1 && tgts[i].att[1] > 0)
+			sattrs += "<div class='xxx_icon_base xxx_icon_attr_" + tgts[i].att[1] + "' style='margin: 5px 0 0 -5px; float: left' />";
 		$('#tbody_tgtsdmg').append(
 			"<tr>"
-			+ "	<td id='td_tgtdmg_" + i + "'>" + (tgts[i].hp0).formatMoney(0, ",", ".") + "</td>"
+			+ "	<td id='td_tgtdmg_" + i + "' style='margin-left: 1em;'>"
+			+ sattrs
+			+ (tgts[i].hp0).formatMoney(0, ",", ".") + "</td>"
 			+ "	<td>" + (tgts[i].hp).formatMoney(0, ",", ".") + " (" + npct + " %)</td>"
 			+ "</tr>");
 	}
+}
+
+function onchange_edit_charic() {
+	set_char_img('#im_charic_edit', $('#tx_char_no').val(),
+		[ { att: $('#s_attr1').val(), dmg: 0 }, { att: $('#s_attr2').val(), dmg: 0 } ]);
 }
 
 var	g_charidx_edit = 0;
@@ -301,6 +311,16 @@ $(document).ready(function() {
 		expand: function(event, ui) {
 				$("#sp_cmbrows_bal").text("");
 			}
+	});
+
+	$("#tx_char_no").bind("change", function(event, ui) {
+		onchange_edit_charic();
+	});
+	$("#s_attr1").bind("change", function(event, ui) {
+		onchange_edit_charic();
+	});
+	$("#s_attr2").bind("change", function(event, ui) {
+		onchange_edit_charic();
 	});
 
 	lo_partyselect();
@@ -656,6 +676,41 @@ function show_calc_log() {
 	$.mobile.changePage("#p_dlg_log");
 }
 
+function set_char_img(idimga, nnoa, dmgsa) {
+	$(idimga).css("border-top", "thick solid " + ACS_ATTRCOL[dmgsa[0].att]);
+	$(idimga).css("border-left", "thin solid " + ACS_ATTRCOL[dmgsa[0].att]);
+	$(idimga).css("border-bottom", "thick solid "
+		+ (dmgsa.length > 1 ? ACS_ATTRCOL[dmgsa[1].att] : ACS_ATTRCOL[0]));
+	$(idimga).css("border-right", "thin solid "
+		+ (dmgsa.length > 1 ? ACS_ATTRCOL[dmgsa[1].att] : ACS_ATTRCOL[0]));
+	var	simgs0 = (g_sextrespath != null ? g_sextrespath : "./res/") + "/imgs/";
+	var	simgpos = (ACHRIMG_POSSIZ[nnoa] == undefined ? "50% 25%" : ACHRIMG_POSSIZ[nnoa].pos);
+	var	simgsiz = (ACHRIMG_POSSIZ[nnoa] == undefined ? "500px" : ACHRIMG_POSSIZ[nnoa].siz);
+	var	newimgpath0 = (simgs0 + nnoa + ".jpg");
+	{	// img direct load
+		$(idimga).css("background", "transparent url("
+			+ newimgpath0 + ") " + simgpos);
+		$(idimga).css("background-size", simgsiz);
+	}
+	//$("#im_charic_" + (i + 1)).hide();//.css("background-image", "none").hide();
+	/*var	curimgpath0 = $("#im_charic_" + (i + 1)).css("background");
+	if(curimgpath0.match(newimgpath0) == null) {	// load only when the img be changed
+		// load img for background only when succeeded to load it into temp <img>
+		$("#im_charic_" + (i + 1)).css("background", "url(res/imgs/img_noimg.png) 50% 50%");
+//		$("#im_charic_" + (i + 1)).css("background-size", "100px");
+		$("#im_charic_" + (i + 1) + "_temp").attr("src", newimgpath0).off("load").on(
+			"load", null,
+			{ idxa: (i + 1), srca: ("transparent url(" + newimgpath0 + ") " + simgpos), siza: simgsiz },
+			function(eoarg) {
+  				$("#im_charic_" + eoarg.data.idxa).css("background", eoarg.data.srca);
+				$("#im_charic_" + eoarg.data.idxa).css("background-size", eoarg.data.siza);
+				//$("#im_charic_1").css("display", "inline");
+				//$("#im_charic_1").fadeIn(1000);
+				//console.log(eoarg.data);
+				//console.log(eoarg.data.idxa + " loaded.");
+			});
+	}*/
+}
 function switch_focus_party(idx) {
 	g_nfocusparty = parseInt(idx);
 	pty1 = g_aparties[idx];
@@ -669,7 +724,9 @@ function switch_focus_party(idx) {
 		$("#im_charic_" + (i + 1)).css("border-left", "thin solid " + ACS_ATTRCOL[mbr0.dmgs[0].att]);
 		$("#im_charic_" + (i + 1)).css("border-bottom", "thick solid "
 			+ (mbr0.dmgs.length > 1 ? ACS_ATTRCOL[mbr0.dmgs[1].att] : ACS_ATTRCOL[0]));
-		var	simgs0 = (g_sextrespath != null ? g_sextrespath : "./res/") + "/imgs/";
+		//
+		set_char_img("#im_charic_" + (i + 1), mbr0.no, mbr0.dmgs);
+		/*var	simgs0 = (g_sextrespath != null ? g_sextrespath : "./res/") + "/imgs/";
 		var	simgpos = (ACHRIMG_POSSIZ[mbr0.no] == undefined ? "50% 25%" : ACHRIMG_POSSIZ[mbr0.no].pos);
 		var	simgsiz = (ACHRIMG_POSSIZ[mbr0.no] == undefined ? "500px" : ACHRIMG_POSSIZ[mbr0.no].siz);
 		var	newimgpath0 = (simgs0 + mbr0.no + ".jpg");
@@ -748,6 +805,8 @@ function init_char_edit() {
 		$("#sl_enh_" + i).val(mbr0.rens[i]);
 		$("#sl_enh_" + i).slider("refresh");
 	}
+
+	onchange_edit_charic();
 }
 function end_char_edit(bsave) {
 	// store edited form values
