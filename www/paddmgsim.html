@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="defaults.css" />
 <style>
 /* layout outer responsive */
-@media all and (max-device-width: 39em) {
+@media not screen and (min-width: 40em) and (orientation : landscape) {
 	.screenbreak.ui-block-a,
 	.screenbreak.ui-block-b,
 	.screenbreak.ui-block-c,
@@ -25,7 +25,7 @@
 	.screenbreak.ui-block-b {
 	}
 }
-@media all and (min-device-width: 40em) {
+@media only screen and (min-width: 40em) and (orientation : landscape) {
 	.screenbreak.ui-block-b {
 		padding-left: 10px;
 	}
@@ -45,7 +45,10 @@
 			path to ext res (ex. file:///sdcard/paddmgsim/)
 			<label for="tx_erespath" class="ui-hidden-accessible">path</label>
 			<input type="text" name="tx_erespath" id="tx_erespath" data-theme="a" value="" placeholder="path">
-			<a data-role="button" data-mini="true" href="javascript:setExtResPath();">Set</a>
+			<fieldset data-role="controlgroup" data-type="horizontal" align="right">
+				<a data-role="button" data-mini="true" href="javascript:$('#tx_erespath').val('file:///sdcard/paddmgsim/');">Default</a>
+				<a data-role="button" data-mini="true" href="javascript:setExtResPath();">Set</a>
+			</fieldset>
 		</div>
 		<ul data-role="listview" data-inset="true" data-theme="a">
 			<li data-role="button" data-icon="arrow-r" data-theme="a" ><a href="javascript:appSaveAll();">Save Parties</a></li>
@@ -68,6 +71,7 @@
 		<select name="s_party" id="s_party" data-mini="true" data-theme="a" data-icon="false" data-inline="true" data-native-menu="true" tabindex="-1"
 			onchange="javascript:switch_focus_party($('#s_party').val());">
 		</select>
+		<!-- <a href="javascript:togglePartySummary();" data-role="button" data-mini="true" data-icon="bullets" data-rel="popup" data-iconpos="right">&gt;&gt;</a> -->
 		<a href="#popupEditParty" data-role="button" data-mini="true" data-icon="gear" data-rel="popup" data-iconpos="right">&gt;&gt;</a>
 	</fieldset>
 	<!-- party menu dialog -->
@@ -89,7 +93,8 @@
 		</ul>
 	</div>
 
-	<fieldset class="ui-grid-a" style="background-color: black; border-radius: 5px; padding: 2px">
+	<div style="background-color: black; border-radius: 5px; padding: 2px">
+	<fieldset class="ui-grid-a">
 		<div class="ui-block-a">
 			<fieldset class="ui-grid-b" id="fs_char_123">
 				<div class="ui-block-a xc_minic"><center><div id="d_char_c1no"></div>
@@ -117,6 +122,21 @@
 			</fieldset>
 		</div>
 	</fieldset>
+
+	<!-- party summary -->
+	<div id="d_psum" class="xc_minic" style="padding: 2px;">
+		<fieldset class="ui-grid-b" id="fs_char_123" style="padding-top: 1em">
+			<div class="ui-block-a"><div id="d_psum_a1" class="xxx_icon_base xxx_icon_attr_1" align="center"></div></div>
+			<div class="ui-block-b"><div id="d_psum_a2" class="xxx_icon_base xxx_icon_attr_2" align="center"></div></div>
+			<div class="ui-block-c"><div id="d_psum_a3" class="xxx_icon_base xxx_icon_attr_3" align="center"></div></div>
+		</fieldset>
+		<fieldset class="ui-grid-b" id="fs_char_123">
+			<div class="ui-block-a"><div id="d_psum_a4" class="xxx_icon_base xxx_icon_attr_4" align="center"></div></div>
+			<div class="ui-block-b"><div id="d_psum_a5" class="xxx_icon_base xxx_icon_attr_5" align="center"></div></div>
+			<div class="ui-block-c"><div id="d_psum_atotal" style="margin-top: .7em; font-weight: bold;" align="center"></div></div>
+		</fieldset>
+	</div>
+	</div>
 
 	</div><div class="ui-block-b screenbreak" style="border: 3px red"><!-- RWD layout -->
 

@@ -1,5 +1,8 @@
 platforms/android/ant-gen/
 platforms/android/ant-build/
 platforms/android/assets/
+platforms/android/AndroidManifest.xml
 platforms/android/CordovaLib/ant-gen/
+platforms/android/CordovaLib/ant-build/build.prop
 platforms/android/CordovaLib/ant-build/classes
+platforms/android/res/xml/config.xml
